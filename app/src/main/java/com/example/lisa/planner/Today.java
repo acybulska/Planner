@@ -111,20 +111,10 @@ public class Today extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        gps = new GPSTracker(Today.this);
 
-                        if(gps.canGetLocation()){
+                        Intent intent = new Intent(Today.this,Places.class);
+                        startActivity(intent);
 
-                            double latitude = gps.getLatitude();
-                            double longitude = gps.getLongitude();
-
-                            Toast.makeText(getApplicationContext(),
-                                    "Your Location is - \nLat: " + latitude + "\nLong: " + longitude,
-                                    Toast.LENGTH_LONG).show();
-                        }
-                        else{
-                            gps.showSettingsAlert();
-                        }
                     }
                 }
         );
