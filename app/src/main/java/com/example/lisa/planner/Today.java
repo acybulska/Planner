@@ -3,7 +3,6 @@ package com.example.lisa.planner;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,7 +15,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 
 public class Today extends AppCompatActivity {
 
@@ -24,7 +22,6 @@ public class Today extends AppCompatActivity {
     FloatingActionButton checkLocationBtn;
     EditText todayDate;
     EditText newTask;
-    GPSTracker gps;
     int fineLocPerm;
     int coarseLocPerm;
     int internetPerm;
@@ -69,7 +66,6 @@ public class Today extends AppCompatActivity {
                         newTask = (EditText) popupView.findViewById(R.id.newTask);
                         Button cancelBtn = (Button) popupView.findViewById(R.id.cancelBtn);
                         Button addBtn = (Button) popupView.findViewById(R.id.addBtn);
-                        Button addPlaceBtn = (Button) popupView.findViewById(R.id.addPlaceBtn);
 
                         cancelBtn.setOnClickListener(new Button.OnClickListener(){
 
@@ -89,17 +85,6 @@ public class Today extends AppCompatActivity {
                                 CheckBox cb = new CheckBox(getApplicationContext());
                                 cb.setText(newTask.getText());
                                 linearLayout.addView(cb);
-                            }
-                        });
-                        addPlaceBtn.setOnClickListener(new Button.OnClickListener(){
-
-                            @Override
-                            public void onClick(View v) {
-                                String thePlace = "University of Technology, Wroclaw";
-                                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                                        Uri.parse("geo:0,0?q=" + thePlace));
-                                startActivity(intent);
-                                //Bundle x = getIntent().getExtras();
                             }
                         });
                         popupWindow.showAsDropDown(todayDate,0,0);

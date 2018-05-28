@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -15,11 +16,15 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+import java.util.List;
+
 public class Places extends AppCompatActivity {
 
     FloatingActionButton addLocationBtn;
+    LinearLayout linearLayout;
+
     GPSTracker gps;
-    Place newPlace;
+    List<PlaceDetails> placeDetailsList;
 
     private static final int PLACE_PICKER_REQUEST = 1;
     private static final String TAG = "PlacesActivity";
@@ -30,6 +35,7 @@ public class Places extends AppCompatActivity {
         setContentView(R.layout.activity_places);
 
         addLocationBtn = (FloatingActionButton)findViewById(R.id.addLocationFab);
+        linearLayout = (LinearLayout)findViewById(R.id.placesList);
 
         gps = new GPSTracker(Places.this);
 
@@ -42,7 +48,6 @@ public class Places extends AppCompatActivity {
                     double latitude = gps.getLatitude();
                     double longitude = gps.getLongitude();
 
-
                     LatLngBounds latLngBounds = new LatLngBounds(new LatLng(latitude, longitude),
                             new LatLng(latitude, longitude));
                     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -51,8 +56,8 @@ public class Places extends AppCompatActivity {
                     try {
                         Intent newPlacePicker = builder.build(Places.this);
                         startActivityForResult(newPlacePicker, PLACE_PICKER_REQUEST);
-                        newPlace = PlacePicker.getPlace(newPlacePicker, Places.this);
-                    } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
+                    }
+                    catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
                         e.printStackTrace();
                         Log.e(TAG, e.getStackTrace().toString());
                     }
@@ -64,14 +69,27 @@ public class Places extends AppCompatActivity {
         });
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Place place = PlacePicker.getPlace(data, this);
-                String toastMsg = String.format("Place: %s", place.getName());
-                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+                Place newPlace = PlacePicker.getPlace(this, data);
+                addNewPlace(newPlace);
             }
         }
+    }
+
+    protected void addNewPlace(Place newPlace)
+    {
+        PlaceDetails placeDetails = new PlaceDetails();
+        placeDetails.setName(newPlace.getName().toString());
+        placeDetails.setAddress(newPlace.getAddress().toString());
+        placeDetails.setLatitude(newPlace.getLatLng().latitude);
+        placeDetails.setLongitude(newPlace.getLatLng().longitude);
+        placeDetailsList.add(placeDetails);
+        TextView cb = new TextView(getApplicationContext());
+        cb.setText(placeDetails.getName());
+        linearLayout.addView(cb);
     }
 
 }

@@ -6,17 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".Places">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <LinearLayout
+        android:id="@+id/placesList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/placesList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addLocationFab"
@@ -25,8 +20,9 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
+        android:focusable="true"
         app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
-        app:layout_constraintEnd_toEndOf="@+id/scrollView2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add_white_24dp" />
 </android.support.constraint.ConstraintLayout>
