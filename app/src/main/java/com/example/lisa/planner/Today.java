@@ -44,8 +44,6 @@ public class Today extends AppCompatActivity {
         coarseLocPerm = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
         internetPerm = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
 
-        final List<PlaceDetails> pdl = ((AppExtension) this.getApplication()).getPdl();
-
         if (fineLocPerm != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},RECORD_REQUEST_CODE);
         }
@@ -55,6 +53,7 @@ public class Today extends AppCompatActivity {
         if (internetPerm != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},RECORD_REQUEST_CODE);
         }
+        final List<PlaceDetails> pdl = ((AppExtension) this.getApplication()).getPdl();
 
         addCheckboxBtn.setOnClickListener(
                 new View.OnClickListener() {
@@ -79,7 +78,10 @@ public class Today extends AppCompatActivity {
                         {
                             TextView tv = new TextView(getApplicationContext());
                             tv.setText(pdl.get(i).getName());
+                            tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            tv.setClickable(true);
                             placesLin.addView(tv);
+                            // TODO transform TextView in Buttons
                         }
 
                         cancelBtn.setOnClickListener(new Button.OnClickListener(){
@@ -100,6 +102,12 @@ public class Today extends AppCompatActivity {
                                 CheckBox cb = new CheckBox(getApplicationContext());
                                 cb.setText(newTask.getText());
                                 linearLayout.addView(cb);
+
+                                // TODO if (location checked) -> add to list; else -> null/don't add location
+                                // TODO get geodata and add it to new list "to go" (AppExtension)
+                                // TODO check if you're in approx 100m (?) from the place using GPSTracker
+                                // TODO make service that works in the background and sends the notifications
+
                             }
                         });
                         popupWindow.showAsDropDown(todayDate,0,0);

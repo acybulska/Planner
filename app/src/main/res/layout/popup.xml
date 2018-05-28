@@ -77,7 +77,8 @@
                             android:layout_height="150px"
                             android:layout_weight="1"
                             android:text="Do not specify place"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:clickable="true"/>
                     </LinearLayout>
                 </ScrollView>
 
