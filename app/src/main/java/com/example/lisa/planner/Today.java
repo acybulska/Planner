@@ -15,6 +15,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import java.util.List;
 
 public class Today extends AppCompatActivity {
 
@@ -39,6 +43,8 @@ public class Today extends AppCompatActivity {
         fineLocPerm = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         coarseLocPerm = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
         internetPerm = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
+
+        final List<PlaceDetails> pdl = ((AppExtension) this.getApplication()).getPdl();
 
         if (fineLocPerm != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},RECORD_REQUEST_CODE);
@@ -66,6 +72,15 @@ public class Today extends AppCompatActivity {
                         newTask = (EditText) popupView.findViewById(R.id.newTask);
                         Button cancelBtn = (Button) popupView.findViewById(R.id.cancelBtn);
                         Button addBtn = (Button) popupView.findViewById(R.id.addBtn);
+                        ScrollView pickPlace = (ScrollView) popupView.findViewById(R.id.choosePlace);
+                        LinearLayout placesLin = (LinearLayout) popupView.findViewById(R.id.placesLin);
+
+                        for(int i=0;i<pdl.size();i++)
+                        {
+                            TextView tv = new TextView(getApplicationContext());
+                            tv.setText(pdl.get(i).getName());
+                            placesLin.addView(tv);
+                        }
 
                         cancelBtn.setOnClickListener(new Button.OnClickListener(){
 
