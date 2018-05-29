@@ -76,11 +76,10 @@ public class Today extends AppCompatActivity {
 
                         for(int i=0;i<pdl.size();i++)
                         {
-                            TextView tv = new TextView(getApplicationContext());
-                            tv.setText(pdl.get(i).getName());
-                            tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                            tv.setClickable(true);
-                            placesLin.addView(tv);
+                            Button btn = new Button(getApplicationContext());
+                            btn.setText(pdl.get(i).getName());
+                            btn.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                            placesLin.addView(btn);
                             // TODO transform TextView in Buttons
                         }
 
