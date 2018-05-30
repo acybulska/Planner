@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,8 @@ public class Today extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        startService(new Intent(this, BackgroundService.class));
         setContentView(R.layout.activity_today);
 
         todayDate = (EditText)findViewById(R.id.todayDate);
@@ -126,5 +129,12 @@ public class Today extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        Log.d("_____DESTROY______", "I HAVE BEEN DESTROYED!");
+//        ((AppExtension) this.getApplication()).saveToFile();
     }
 }

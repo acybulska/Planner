@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -14,10 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".AppExtension">
+        <service android:name=".BackgroundService" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDj0911yDwE2EJKCduNFTaI2HbqPXgiGXI" />
+            android:value="AIzaSyBbR14GWPddv6msQOSfLIrv9dA6o9F9-gw" />
 
         <activity
             android:name=".Today"
